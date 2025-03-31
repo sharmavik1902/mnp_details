@@ -56,7 +56,7 @@ def fetch_equip_maint_history(equipment: str):
     print("Fetching all Maint History")
     with get_db_cursor() as cursor:
         cursor.execute(
-        "SELECT * FROM `o&mot`.mmd_dpr WHERE area = %s", (equipment,)
+        "SELECT * FROM `test`.mmd_dpr WHERE equipment = %s", (equipment,)
         )
         data = cursor.fetchall()
         return data
@@ -75,7 +75,7 @@ def fetch_distinct_eqi_wrt_area_list(equipment: str):
     with get_db_cursor() as cursor:
         cursor.execute('''
                         SELECT distinct equipment
-                        FROM `o&mot`.mmd_dpr 
+                        FROM `test`.mmd_dpr 
                         where area= %s
                         ''',(equipment,))
         data = cursor.fetchall()
@@ -83,9 +83,12 @@ def fetch_distinct_eqi_wrt_area_list(equipment: str):
 
 '''---------------------------------------------------------------------------'''
 # if __name__ == "__main__":
-#     history = insert_personal_details("vikas", 27, 8545881483, "sabesar")
-#     print(history)
+#     mnp = insert_personal_details("vikas", 27, 8545881483, "sabesar")
+#     print(mnp)
 
 # if __name__ == "__main__":
 #     dpr = insert_mmd_dpr(1,"A1","CBN-1","MMD","C/O cnv belt",123,12, "12:00", "16:00","sdhjfedj","dfjehiur", "Pending")
 #     print(dpr)
+# if __name__ == "__main__":
+#     history = fetch_equip_maint_history("CR-1")
+#     print(history)
