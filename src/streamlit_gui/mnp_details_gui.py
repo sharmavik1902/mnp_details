@@ -13,7 +13,7 @@ def save_mnp_detail():
     mobile_no = st.text_input("Mobile No.")
     address = st.text_input("Address")
 
-    if st.button("Submit"):
+    if st.button("Add M/P Detail"):
         response = requests.post(f"{API_URL}/mnp_detail/", json={
                 "name":name,
                 "age":age,
@@ -45,7 +45,7 @@ def save_mmd_dpr_tab():
     spares = st.text_area("Spares Part")
     consumables = st.text_area("Consumables")
     status = st.selectbox("Status of Work", ["Open", "In Progress", "Closed"])
-    if st.button("Submit"):
+    if st.button("Add DPR"):
         response = requests.post(f"{API_URL}/mmd_dpr/", json={
                 "unit_no":unit_no,
                 "area":area,
