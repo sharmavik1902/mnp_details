@@ -52,8 +52,36 @@ def insert_mmd_dpr(unit_no, area, equipment, dept, work_description, permit_no, 
         ))
         print("Data added to DB")
 '''-----------------------------------------------------------------------------------'''
+def fetch_equip_maint_history(equipment: str):
+    print("Fetching all Maint History")
+    with get_db_cursor() as cursor:
+        cursor.execute(
+        "SELECT * FROM `o&mot`.mmd_dpr WHERE area = %s", (equipment,)
+        )
+        data = cursor.fetchall()
+        return data
 
+#Fetch Distinct area list
+def fetch_distinct_equip_list():
+    print("Fetching distinct area list")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT area FROM `o&mot`.mmd_dpr")
+        data = cursor.fetchall()
+        return data
 
+# Fetch Distinct Equipment wrt Area
+def fetch_distinct_eqi_wrt_area_list(equipment: str):
+    print("Fetch distinct equipment wrt area")
+    with get_db_cursor() as cursor:
+        cursor.execute('''
+                        SELECT distinct equipment
+                        FROM `o&mot`.mmd_dpr 
+                        where area= %s
+                        ''',(equipment,))
+        data = cursor.fetchall()
+        return data
+
+'''---------------------------------------------------------------------------'''
 # if __name__ == "__main__":
 #     history = insert_personal_details("vikas", 27, 8545881483, "sabesar")
 #     print(history)
