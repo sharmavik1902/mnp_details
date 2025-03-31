@@ -3,7 +3,7 @@ from mnp_details_gui import save_mnp_detail
 from mnp_details_gui import save_mmd_dpr_tab
 from mnp_details_gui import fetch_equp_histry_tab
 
-st.title("Manpower Details")
+st.title("ONMOT Reporting")
 
 # Create tabs and unpack the list into individual tab elements
 tab1, tab2, tab3 = st.tabs(["Manpower Detail","DPR Update","Equipment History"])
