@@ -80,27 +80,45 @@ def save_mmd_dpr_tab():
             st.error(f"Failed to update DPR. Error: {response.status_code} - {response.text}")
 '''-----------------------------------------------------------------------------------------------------'''
 
+
 def fetch_equp_histry_tab():
     st.title("Equipment Maintenance History")
 
     eq_response = requests.get(f"{API_URL}/distinct-eq_list/")
-    eqp_json = eq_response.json()
-    eq_list = [item["area"] for item in eqp_json] #it is convert json to the list for the st.selectbox
 
-    #equipment_name = st.multiselect("Enter Equipment Name:", ["All"] + eq_list)
-    equipment_name = st.selectbox("Enter Equipment Name:",["All"]+eqp_json) #it reflects all the distinct equipment as option is selectbox
-    if st.button("Get History"):
-        response = requests.get(f"{API_URL}/maint_history/{equipment_name}",)
-        if response.status_code == 200:
-            response_data = response.json()
-            # st.write(response_data)
-            debug_data = response_data.get("history",[])
-            if debug_data:
-                df = pd.DataFrame(debug_data)
-                # st.write(df)
-                st.dataframe(df,use_container_width=True)
-            # df = pd.DataFrame(response_data,columns=["S. No.","Date","Unit No","Equipment","Sub Equipment","Maint. Type","BD type","Defect Detain""Work Descrption","Permit No","MP Deployed","Start Time","Completion Time","Duration of Work","Man Hours","Spares","Consumables","Status","Dept"])
-            # st.write("###Equipment Maintenance History:")
-            # st.dataframe(df,use_container_width=True)
-        else:
-            st.error("Failed to fetch data")
+    if eq_response.status_code == 200:
+        eqp_json = eq_response.json()
+
+        # Debugging: Check the type of response
+        st.write("API Response:", eqp_json)
+
+        # Check if it's a dictionary (if so, extract relevant data)
+        if isinstance(eqp_json, dict):
+            if "data" in eqp_json:  # Adjust if API uses a different key
+                eqp_json = eqp_json["data"]
+            else:
+                st.error("Unexpected API response format. Please check the API.")
+                return  # Stop execution
+
+        # Extract 'area' values safely
+        eq_list = list(set(item["area"] for item in eqp_json))  # Using set to remove duplicates
+
+        # Selectbox with correct variable
+        equipment_name = st.selectbox("Enter Equipment Name:", ["All"] + eq_list)
+
+        if st.button("Get History"):
+            response = requests.get(f"{API_URL}/maint_history/{equipment_name}")
+
+            if response.status_code == 200:
+                response_data = response.json()
+                debug_data = response_data.get("history", [])
+
+                if debug_data:
+                    df = pd.DataFrame(debug_data)
+                    st.dataframe(df, use_container_width=True)
+                else:
+                    st.warning("No history data found for the selected equipment.")
+            else:
+                st.error(f"Failed to fetch data. Error: {response.status_code}")
+    else:
+        st.error("Failed to fetch equipment list")
