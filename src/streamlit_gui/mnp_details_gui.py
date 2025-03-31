@@ -84,41 +84,37 @@ def save_mmd_dpr_tab():
 def fetch_equp_histry_tab():
     st.title("Equipment Maintenance History")
 
-    eq_response = requests.get(f"{API_URL}/distinct-eq_list/")
+    try:
+        # Fetch distinct equipment list
+        eq_response = requests.get(f"{API_URL}/distinct-eq_list/", timeout=10)
 
-    if eq_response.status_code == 200:
+        if eq_response.status_code != 200:
+            st.error(f"Failed to fetch equipment list. Error: {eq_response.status_code}")
+            return
+
         eqp_json = eq_response.json()
+        eq_list = [item["equipment"] for item in eqp_json]  # Extract equipment names
 
-        # Debugging: Check the type of response
-        st.write("API Response:", eqp_json)
-
-        # Check if it's a dictionary (if so, extract relevant data)
-        if isinstance(eqp_json, dict):
-            if "data" in eqp_json:  # Adjust if API uses a different key
-                eqp_json = eqp_json["data"]
-            else:
-                st.error("Unexpected API response format. Please check the API.")
-                return  # Stop execution
-
-        # Extract 'area' values safely
-        eq_list = list(set(item["equipment"] for item in eqp_json))  # Using set to remove duplicates
-
-        # Selectbox with correct variable
+        # Selectbox for equipment
         equipment_name = st.selectbox("Enter Equipment Name:", ["All"] + eq_list)
 
         if st.button("Get History"):
+            # Fetch history for the selected equipment
             response = requests.get(f"{API_URL}/maint_history/{equipment_name}")
 
             if response.status_code == 200:
                 response_data = response.json()
-                debug_data = response_data.get("history", [])
+                debug_data = response_data.get("history", [])  # Extract history list
 
                 if debug_data:
                     df = pd.DataFrame(debug_data)
+                    df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d %H:%M")  # Format date
+
                     st.dataframe(df, use_container_width=True)
                 else:
-                    st.warning("No history data found for the selected equipment.")
+                    st.warning("No history data found.")
             else:
                 st.error(f"Failed to fetch data. Error: {response.status_code}")
-    else:
-        st.error("Failed to fetch equipment list")
+
+    except requests.exceptions.RequestException as e:
+        st.error(f"Network error: {e}")
