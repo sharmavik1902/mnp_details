@@ -65,7 +65,7 @@ def fetch_equip_maint_history(equipment: str):
 def fetch_distinct_equip_list():
     print("Fetching distinct area list")
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT area FROM `o&mot`.mmd_dpr")
+        cursor.execute("SELECT equipment FROM `test`.mmd_dpr")
         data = cursor.fetchall()
         return data
 
