@@ -85,7 +85,7 @@ def fetch_equp_histry_tab():
 
     eq_response = requests.get(f"{API_URL}/distinct-eq_list/")
     eqp_json = eq_response.json()
-    #eq_list = [item["area"] for item in eqp_json.values()] #it is convert json to the list for the st.selectbox
+    eq_list = [item["area"] for item in eqp_json] #it is convert json to the list for the st.selectbox
 
     #equipment_name = st.multiselect("Enter Equipment Name:", ["All"] + eq_list)
     equipment_name = st.selectbox("Enter Equipment Name:",["All"]+eqp_json) #it reflects all the distinct equipment as option is selectbox
