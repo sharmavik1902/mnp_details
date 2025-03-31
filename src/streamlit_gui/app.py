@@ -20,7 +20,7 @@ from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry
 
 # Define users (You can replace this with a proper authentication system)
 USER_CREDENTIALS = {
-    "admin": "password123",
+    "admin": "12345",
     "operator": "onmot2025"
 }
 
