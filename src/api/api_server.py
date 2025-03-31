@@ -77,7 +77,7 @@ def fetch_distinct_subequip_wrt_area_list(selected_area: str):
 '''--------------------------------------------------------------------------'''
 
 # Run FastAPI Server Properly (No direct function calls)
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="0.0.0.0", port=8080)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8080)
 

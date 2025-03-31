@@ -101,7 +101,7 @@ def fetch_equp_histry_tab():
                 return  # Stop execution
 
         # Extract 'area' values safely
-        eq_list = list(set(item["area"] for item in eqp_json))  # Using set to remove duplicates
+        eq_list = list(set(item["equipment"] for item in eqp_json))  # Using set to remove duplicates
 
         # Selectbox with correct variable
         equipment_name = st.selectbox("Enter Equipment Name:", ["All"] + eq_list)
