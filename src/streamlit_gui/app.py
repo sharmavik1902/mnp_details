@@ -20,14 +20,14 @@ elif user_role == "Worker":
     tabs["Report Defect"] = report_defect
 
 # Render tabs dynamically
-if tabs:
-    selected_tab = st.selectbox("Select Tab:", list(tabs.keys()))
-    tabs[selected_tab]()
-
-# Render tabs dynamically
-if tabs:
-    selected_tab = st.radio("Select Tab:", list(tabs.keys()))
-    tabs[selected_tab]()
+# if tabs:
+#     selected_tab = st.selectbox("Select Tab:", list(tabs.keys()))
+#     tabs[selected_tab]()
+#
+# # Render tabs dynamically
+# if tabs:
+#     selected_tab = st.radio("Select Tab:", list(tabs.keys()))
+#     tabs[selected_tab]()
 # import streamlit as st
 # from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry_tab
 # from defect_report_gui import report_defect
