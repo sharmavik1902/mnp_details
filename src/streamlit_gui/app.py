@@ -5,18 +5,23 @@ from defect_report_gui import report_defect
 # App Title
 st.title("🛠 ONMOT Reporting System")
 
-# Create tabs for different functionalities
-tab1, tab2, tab3, tab4 = st.tabs(["👷 Manpower Detail", "📋 DPR Update", "⚙️ Equipment History", "Report Defect"])
+# Simulating user role selection (replace with actual authentication-based role fetching)
+user_role = st.selectbox("Select Your Role:", ["Planner", "Worker"])
 
-# Use the first tab (index 0) with a context manager
-with tab1:
-    save_mnp_detail()
-with tab2:
-    save_mmd_dpr_tab()
-with tab3:
-    fetch_equp_histry_tab()
-with tab4:
-    report_defect()
+# Create tabs based on role
+tabs = {}
+
+if user_role == "Planner":
+    tabs["👷 Manpower Detail"] = save_mnp_detail
+    tabs["⚙️ Equipment History"] = fetch_equp_histry_tab
+elif user_role == "Worker":
+    tabs["📋 DPR Update"] = save_mmd_dpr_tab
+    tabs["Report Defect"] = report_defect
+
+# Render tabs dynamically
+if tabs:
+    selected_tab = st.radio("Select Tab:", list(tabs.keys()))
+    tabs[selected_tab]()
 # import streamlit as st
 # from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry_tab
 # from defect_report_gui import report_defect
