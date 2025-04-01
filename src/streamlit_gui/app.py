@@ -16,7 +16,7 @@ tabs = {}
 if user_role == "Planner":
     tabs["👷 Manpower Detail"] = save_mnp_detail
     tabs["⚙️ Equipment History"] = fetch_equp_histry_tab
-    tabs["Filter Defect"] = get_defect_by_multi_tab()
+    tabs["Filter Defect"] = get_defect_by_multi_tab
 elif user_role == "Worker":
     tabs["📋 DPR Update"] = save_mmd_dpr_tab
     tabs["Report Defect"] = report_defect
