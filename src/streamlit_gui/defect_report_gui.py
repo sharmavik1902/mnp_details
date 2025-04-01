@@ -30,3 +30,22 @@ def report_defect():
             st.error(f"Failed to update defect. Error: {response.status_code} - {response.text}")
 
 '''-------------------------------------------------------------------------------------------------'''
+def get_defect_by_multi_tab():
+    st.title("Filter Defect List")
+    select_status = st.selectbox("Choose Status:", ["Reported", "Closed"])
+    if select_status!= "All":
+        eqp_list_response = requests.get(f"{API_URL}/equipment_list/{select_status}",)
+        eqp_list_json = eqp_list_response.json()
+        eqp_list = [item["equipment_id"] for item in eqp_list_json]
+    else:
+        eqp_list = []
+    select_eqp = st.selectbox("Select Equipment", ["All"]+eqp_list)
+    if select_eqp!= "All":
+        part_list_response = requests.get(f"{API_URL}/part_list/{select_eqp}",)
+        part_list_json = part_list_response.json()
+        part_list = [item["part_id"] for item in part_list_json]
+    else:
+        part_list = []
+    select_defect = st.selectbox("Select Defect", ["All"]+part_list)
+
+

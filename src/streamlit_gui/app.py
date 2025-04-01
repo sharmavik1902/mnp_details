@@ -1,6 +1,7 @@
 import streamlit as st
 from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry_tab
 from defect_report_gui import report_defect
+from defect_report_gui import get_defect_by_multi_tab
 
 # App Title
 st.title("🛠 ONMOT Reporting System")
@@ -15,6 +16,7 @@ tabs = {}
 if user_role == "Planner":
     tabs["👷 Manpower Detail"] = save_mnp_detail
     tabs["⚙️ Equipment History"] = fetch_equp_histry_tab
+    tabs["Filter Defect"] = get_defect_by_multi_tab()
 elif user_role == "Worker":
     tabs["📋 DPR Update"] = save_mmd_dpr_tab
     tabs["Report Defect"] = report_defect

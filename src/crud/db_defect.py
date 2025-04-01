@@ -43,13 +43,43 @@ def get_all_defects(defect_status= str):
     print("Fetching all Defect History")
     with get_db_cursor() as cursor:
         cursor.execute(
-        "SELECT * FROM equipment_defect_reports WHERE defect_status = %s", (defect_status,)
+        "SELECT * FROM equipment_defect_reports WHERE defect_status = %s;", (defect_status,)
         )
         data = cursor.fetchall()
         return data
 
-# Update defect status and assign technician
+def get_distinct_eqp(defect_status: str):
+    print("Fetch distinct equipment wrt status")
+    with get_db_cursor() as cursor:
+        cursor.execute('''
+                        SELECT distinct equipment_id
+                        FROM  equipment_defect_reports
+                        where defect_status = %s
+                        ''',(defect_status,))
+        data = cursor.fetchall()
+        return data
 
+def get_distinct_part(equipment_id: str):
+    print("Fetch distinct equipment wrt status")
+    with get_db_cursor() as cursor:
+        cursor.execute('''
+                        SELECT distinct part_id
+                        FROM  equipment_defect_reports
+                        where equipment_id = %s
+                        ''',(equipment_id,))
+        data = cursor.fetchall()
+        return data
+
+def get_distinct_defect(part_id: str):
+    print("Fetch distinct equipment wrt status")
+    with get_db_cursor() as cursor:
+        cursor.execute('''
+                        SELECT distinct defect_description
+                        FROM  equipment_defect_reports
+                        where part_id = %s
+                        ''',(part_id,))
+        data = cursor.fetchall()
+        return data
 
 '''------------------------------------------------------------------------------'''
 # if __name__ == "__main__":
