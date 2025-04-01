@@ -17,6 +17,7 @@
 #     fetch_equp_histry_tab()
 import streamlit as st
 from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry_tab
+from defect_report_gui import report_defect
 
 # Define users (You can replace this with a proper authentication system)
 USER_CREDENTIALS = {
@@ -62,7 +63,7 @@ else:
     st.title("🛠 ONMOT Reporting System")
 
     # Create tabs for different functionalities
-    tab1, tab2, tab3 = st.tabs(["👷 Manpower Detail", "📋 DPR Update", "⚙️ Equipment History"])
+    tab1, tab2, tab3, tab4 = st.tabs(["👷 Manpower Detail", "📋 DPR Update", "⚙️ Equipment History", "Report Defect"])
 
     # Use the first tab (index 0) with a context manager
     with tab1:
@@ -71,5 +72,7 @@ else:
         save_mmd_dpr_tab()
     with tab3:
         fetch_equp_histry_tab()
+    with tab4:
+        report_defect()
 
 # python -m streamlit run src/streamlit_gui/app.py

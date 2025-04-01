@@ -25,7 +25,7 @@ def get_db_cursor(commit=False): #Commit is used to reflect the data changes to 
 '''----------------------------------------------------------------------------------'''
 
 # Create a new defect report
-def create_defect_report(equipment_id, part_id, defect_description, reported_by):
+def save_defect_report(equipment_id, part_id, defect_description, reported_by):
 
     with get_db_cursor(commit=True) as cursor:
         insert_query = (
