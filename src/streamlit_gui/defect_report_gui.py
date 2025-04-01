@@ -36,6 +36,7 @@ def get_defect_by_multi_tab():
     st.title("Filter Defect List")
 
     select_status = st.selectbox("Choose Status:", ["Reported", "Closed"])
+    st.write(select_status)
 
     eqp_list = []
     if select_status != "All":
@@ -45,6 +46,7 @@ def get_defect_by_multi_tab():
             eqp_list_json = eqp_list_response.json()
             if isinstance(eqp_list_json, list):  # Ensure it is a list
                 eqp_list = [item["equipment_id"] for item in eqp_list_json if isinstance(item, dict)]
+                st.write(eqp_list)
 
     select_eqp = st.selectbox("Select Equipment", ["All"] + eqp_list)
 
