@@ -20,9 +20,9 @@ elif user_role == "Worker":
     tabs["Report Defect"] = report_defect
 
 # Render tabs dynamically
-# if tabs:
-#     selected_tab = st.selectbox("Select Tab:", list(tabs.keys()))
-#     tabs[selected_tab]()
+if tabs:
+    selected_tab = st.selectbox("Select Tab:", list(tabs.keys()))
+    tabs[selected_tab]()
 #
 # # Render tabs dynamically
 # if tabs:
