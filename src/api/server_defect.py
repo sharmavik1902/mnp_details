@@ -15,13 +15,13 @@ class ReportDefect(BaseModel):
 
 '''--------------------------------------------------------------'''
 
-# @app.post("/report_defect/")
-# def save_mmd_dpr(report: ReportDefect = Body()):
-#     save_defect_report(*report.model_dump().values())
-#     if not report:
-#         raise HTTPException(status_code=500, detail="Failed to retrieve defect summery from the database")
-#
-#     return {"message": "Defect updated successfully"}
+@app.post("/report_defect/")
+def save_mmd_dpr(report: ReportDefect = Body()):
+    save_defect_report(*report.model_dump().values())
+    if not report:
+        raise HTTPException(status_code=500, detail="Failed to retrieve defect summery from the database")
+
+    return {"message": "Defect updated successfully"}
 
 '''------------------------------------------------------'''
 # if __name__ == "__main__":
