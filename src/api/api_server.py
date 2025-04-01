@@ -7,6 +7,7 @@ from src.crud.db_crud import insert_mmd_dpr
 from src.crud.db_crud import fetch_equip_maint_history
 from src.crud.db_crud import fetch_distinct_equip_list
 from src.crud.db_crud import fetch_distinct_eqi_wrt_area_list
+from src.crud.db_defect import save_defect_report
 
 app = FastAPI()
 '''---------------------------------------------------------------'''
@@ -23,6 +24,12 @@ class DailyDefect(BaseModel):
     consumables: str
     spares: str
     status: str
+
+class ReportDefect(BaseModel):
+    equipment_id: str
+    part_id: str
+    defect_description: str
+    reported_by: str
 '''----------------------------------------------'''
 class PersonalDetail(BaseModel):
     name: str
@@ -75,6 +82,14 @@ def fetch_distinct_subequip_wrt_area_list(selected_area: str):
 
 
 '''--------------------------------------------------------------------------'''
+@app.post("/report_defect/")
+def save_mmd_dpr(report: ReportDefect = Body()):
+    save_defect_report(*report.model_dump().values())
+    if not report:
+        raise HTTPException(status_code=500, detail="Failed to retrieve defect summery from the database")
+
+    return {"message": "Defect updated successfully"}
+
 
 # Run FastAPI Server Properly (No direct function calls)
 if __name__ == "__main__":

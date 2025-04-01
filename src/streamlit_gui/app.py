@@ -1,6 +1,6 @@
 import streamlit as st
 from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry_tab
-from defect_report_gui import report_defect
+from mnp_details_gui import report_defect
 
 # App Title
 st.title("🛠 ONMOT Reporting System")
