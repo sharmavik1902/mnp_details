@@ -49,18 +49,8 @@ def get_all_defects(defect_status= str):
         return data
 
 # Update defect status and assign technician
-def update_defect(defect_id, assigned_technician, defect_status, resolution_date, downtime_hours, remarks):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    query = """
-        UPDATE equipment_defect_reports 
-        SET assigned_technician=%s, defect_status=%s, resolution_date=%s, downtime_hours=%s, remarks=%s
-        WHERE id=%s
-    """
-    cursor.execute(query, (assigned_technician, defect_status, resolution_date, downtime_hours, remarks, defect_id))
-    conn.commit()
-    cursor.close()
-    conn.close()
+
+
 '''------------------------------------------------------------------------------'''
 # if __name__ == "__main__":
 #     defect = create_defect_report("BCN-1", "GBox","Oil Spillage","Vikas")
