@@ -45,10 +45,10 @@ def get_defect_by_multi_tab():
         if eqp_list_response.status_code == 200:
             eqp_list_json = eqp_list_response.json()
             if isinstance(eqp_list_json, list):  # Ensure it is a list
-                eqp_list = [item["equipment_id"] for item in eqp_list_json if isinstance(item, dict)]
+                eqp_list = [item["equipment_id"] for item in eqp_list_json]
                 st.write(eqp_list)
 
-    select_eqp = st.selectbox("Select Equipment", ["All"] + eqp_list)
+    select_eqp = st.selectbox("Select Equipment", ["All"]+eqp_list)
 
     part_list = []
     if select_eqp != "All":
@@ -57,9 +57,9 @@ def get_defect_by_multi_tab():
         if part_list_response.status_code == 200:
             part_list_json = part_list_response.json()
             if isinstance(part_list_json, list):  # Ensure it is a list
-                part_list = [item["part_id"] for item in part_list_json if isinstance(item, dict)]
+                part_list = [item["part_id"] for item in part_list_json]
 
-    select_defect = st.selectbox("Select Defect", ["All"] + part_list)
+    select_defect = st.selectbox("Select Defect", ["All"]+part_list)
 
 
 
