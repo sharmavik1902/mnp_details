@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 from datetime import datetime
 import pandas as pd
-API_URL = "https://mnp-details.onrender.com"
+API_URL = "https://mnp-details-gui.onrender.com"
 '''-------------------------------------------------------------'''
 
 def report_defect():
