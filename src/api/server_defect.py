@@ -21,7 +21,7 @@ def save_mmd_dpr(report: ReportDefect = Body()):
     if not report:
         raise HTTPException(status_code=500, detail="Failed to retrieve defect summery from the database")
 
-    return {"massage": "Defect updated successfully"}
+    return {"message": "Defect updated successfully"}
 
 '''------------------------------------------------------'''
 # if __name__ == "__main__":
