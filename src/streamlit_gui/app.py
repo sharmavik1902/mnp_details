@@ -5,8 +5,9 @@ from defect_report_gui import report_defect
 # App Title
 st.title("🛠 ONMOT Reporting System")
 
-# Simulating user role selection (replace with actual authentication-based role fetching)
-user_role = st.selectbox("Select Your Role:", ["Planner", "Worker"])
+# User role selection using expander
+with st.expander("Select Your Role:"):
+    user_role = st.selectbox("Choose Role:", ["Planner", "Worker"])
 
 # Create tabs based on role
 tabs = {}
@@ -17,6 +18,11 @@ if user_role == "Planner":
 elif user_role == "Worker":
     tabs["📋 DPR Update"] = save_mmd_dpr_tab
     tabs["Report Defect"] = report_defect
+
+# Render tabs dynamically
+if tabs:
+    selected_tab = st.selectbox("Select Tab:", list(tabs.keys()))
+    tabs[selected_tab]()
 
 # Render tabs dynamically
 if tabs:
