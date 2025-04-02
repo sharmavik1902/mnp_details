@@ -73,7 +73,7 @@ def get_defect_by_multi_tab():
     report_list = []  # Initialize to avoid NameError
 
     if select_part != "All":
-        report_list_response = requests.get(f"{API_URL}/part_list/{select_part}")
+        report_list_response = requests.get(f"{API_URL}/distinct_defect/{select_part}")
 
         if report_list_response.status_code == 200:
             report_list_json = report_list_response.json()
