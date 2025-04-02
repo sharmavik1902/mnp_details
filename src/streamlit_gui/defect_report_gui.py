@@ -40,9 +40,9 @@ def get_defect_by_multi_tab():
 
 
     if select_status != "All":
+        st.write(select_status)
 
         eqp_list_response = requests.get(f"{API_URL}/equipment_list/{select_status}")
-        st.write(eqp_list_response)
 
         if eqp_list_response.status_code == 200:
             eqp_list_json = eqp_list_response.json()
@@ -51,7 +51,7 @@ def get_defect_by_multi_tab():
         else:
             st.write("Eqp not fetched")
 
-    st.write(eqpmnt_list)
+
     select_eqp = st.selectbox("Choo Equipment", ["All"]+eqpmnt_list)
 
     part_list = []
