@@ -85,7 +85,7 @@ def get_distinct_defect(part_id: str):
 
 def update_defect_report(
     assigned_technician, defect_status, downtime_hours,
-    remarks, type_of_activity, consumption, spare, equipment_id, part_id, defect_description
+    remarks, type_of_activity, consumption, spare,resolution_date, equipment_id, part_id, defect_description
     ):
     with get_db_cursor(commit=True) as cursor:
         update_query = """
@@ -98,6 +98,7 @@ def update_defect_report(
                 type_of_activity = %s,
                 consumption = %s,
                 spare = %s
+                resolution_date = %s
             WHERE 
                 equipment_id = %s
                 AND part_id = %s 
@@ -106,7 +107,7 @@ def update_defect_report(
 
         cursor.execute(update_query, (
             assigned_technician, defect_status, downtime_hours,
-            remarks, type_of_activity, consumption, spare, equipment_id, part_id, defect_description
+            remarks, type_of_activity, consumption, spare,resolution_date, equipment_id, part_id, defect_description
         ))
 
         print("Defect report updated successfully")

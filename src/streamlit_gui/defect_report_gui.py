@@ -81,6 +81,7 @@ def get_defect_by_multi_tab():
     spare = st.text_input("Spare Part Used")
     defect_status = st.selectbox("Choose Status:", ["Reported", "Closed","Under Review","Resolved","Duplicate"])
     downtime_hours = st.text_input("Down Time")
+    resolution_date = st.date_input
     equipment_id = select_eqp
     part_id = select_part
     defect_description = select_report
@@ -95,6 +96,7 @@ def get_defect_by_multi_tab():
               "type_of_activity": type_of_activity,
               "consumption": consumption,
               "spare": spare,
+              "resolution_date": resolution_date,
               "equipment_id": equipment_id,
               "part_id": part_id,
               "defect_description": defect_description
