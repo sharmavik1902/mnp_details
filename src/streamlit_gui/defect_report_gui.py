@@ -110,10 +110,7 @@ def report_defect():
 #         else:
 #             st.error(f"Failed to update defect. Error: {response.status_code} - {response.text}")
 
-import streamlit as st
-import requests
 
-API_URL = "https://your-api-url.com"  # Ensure API_URL is defined
 
 
 def fetch_data(endpoint):
