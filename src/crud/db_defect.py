@@ -82,10 +82,47 @@ def get_distinct_defect(part_id: str):
         return data
 
 '''------------------------------------------------------------------------------'''
+
+def update_defect_report(
+    assigned_technician, defect_status, downtime_hours,
+    remarks, type_of_activity, consumption, spare, equipment_id, part_id, defect_description
+    ):
+    with get_db_cursor(commit=True) as cursor:
+        update_query = """
+            UPDATE equipment_defect_reports
+            SET 
+                assigned_technician = %s,
+                defect_status = %s,
+                downtime_hours = %s,
+                remarks = %s,
+                type_of_activity = %s,
+                consumption = %s,
+                spare = %s
+            WHERE 
+                equipment_id = %s
+                AND part_id = %s 
+                AND defect_description = %s;
+        """
+
+        cursor.execute(update_query, (
+            assigned_technician, defect_status, downtime_hours,
+            remarks, type_of_activity, consumption, spare, equipment_id, part_id, defect_description
+        ))
+
+        print("Defect report updated successfully")
+
+
+
+
 # if __name__ == "__main__":
 #     defect = create_defect_report("BCN-1", "GBox","Oil Spillage","Vikas")
 #     print(defect)
 
 # if __name__ == "__main__":
 #     defect = get_all_defects("Reported")
+#     print(defect)
+
+# if __name__ == "__main__":
+#     defect = update_defect_report("lalu","Closed",4.0,
+#             "Test ho rha hai", "C/O", "Lube Oil", "Oil Seal", "BCN-1", "GBox", "Oil Spillage")
 #     print(defect)

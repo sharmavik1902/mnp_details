@@ -74,10 +74,37 @@ def get_defect_by_multi_tab():
 
     select_report = st.selectbox("Choose Report:", ["Select Report"] + report_list)
 
-    # Display the selected options for debugging
-    st.write("### Selected Filters:")
-    st.write(f"**Equipment:** {select_eqp}")
-    st.write(f"**Part:** {select_part}")
-    st.write(f"**Defect Report:** {select_report}")
-    st.write(f"**Status:** {select_status}")
+    assigned_technician = st.text_input("Technician Name")
+    type_of_activity = st.text_input("Type of Activity")
+    remarks = st.text_input("Additional Remarks")
+    consumption = st.text_input("Consumables")
+    spare = st.text_input("Spare Part Used")
+    defect_status = st.selectbox("Choose Status:", ["Reported", "Closed","Under Review","Resolved","Duplicate"])
+    downtime_hours = st.text_input("Down Time")
+    equipment_id = select_eqp
+    part_id = select_part
+    defect_description = select_report
+
+    if st.button("Update Defect to DB"):
+        response = requests.post(f"{API_URL}/update_defect/", json={
+
+              "assigned_technician": assigned_technician,
+              "defect_status": defect_status,
+              "downtime_hours": downtime_hours,
+              "remarks": remarks,
+              "type_of_activity": type_of_activity,
+              "consumption": consumption,
+              "spare": spare,
+              "equipment_id": equipment_id,
+              "part_id": part_id,
+              "defect_description": defect_description
+        },
+        timeout=10  # Timeout for robustness
+        )
+
+        # Handle response
+        if response.status_code == 200:
+            st.success("Defect updated successfully!")
+        else:
+            st.error(f"Failed to update defect. Error: {response.status_code} - {response.text}")
 

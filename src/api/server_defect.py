@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException, Body
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 from src.crud.db_defect import save_defect_report
 from src.crud.db_defect import get_all_defects
 from src.crud.db_defect import get_distinct_defect,get_distinct_part,get_distinct_eqp
+from src.crud.db_defect import update_defect_report
 
 app = FastAPI()
 '''-------------------------------------------------------------'''
@@ -14,6 +16,17 @@ class ReportDefect(BaseModel):
     defect_description: str
     reported_by: str
 
+class DefectUpdateRequest(BaseModel):
+    assigned_technician: str
+    defect_status: str
+    downtime_hours: float
+    remarks: str
+    type_of_activity: str
+    consumption: str
+    spare: str
+    equipment_id: str
+    part_id: str
+    defect_description: str
 
 '''--------------------------------------------------------------'''
 
@@ -53,6 +66,15 @@ def distinct_part_list(part_list: str):
     if not data:
         raise HTTPException(status_code=404, detail="No data found")
     return {"part_list": part_list, "distinct_defect": data}
+'''------------------------------------------------------------------'''
+# FastAPI Route
+@app.post("/update_defect/")
+def update_defect(report:DefectUpdateRequest  = Body()):
+    update_defect_report(*report.model_dump().values())
+    if report == 0:
+        raise HTTPException(status_code=500, detail="Failed to update defect report in the database")
+
+    # return {"message": "Defect updated successfully"}
 
 '''-------------------------------------------------------------------------'''
 if __name__ == "__main__":
