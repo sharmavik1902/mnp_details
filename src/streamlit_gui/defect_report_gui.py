@@ -175,7 +175,7 @@ def get_defect_by_multi_tab():
                 "type_of_activity": type_of_activity,
                 "consumption": consumption,
                 "spare": spare,
-                "resolution_date": resolution_date,
+                "resolution_date": resolution_date.isoformat(),
                 "equipment_id": select_eqp,
                 "part_id": select_part,
                 "defect_description": select_report
