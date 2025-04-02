@@ -67,7 +67,7 @@ def get_defect_by_multi_tab():
             part_list = ["Parts not fetched"]
             st.write("Parts not detched")
 
-    select_defect = st.selectbox("Choo Defect", ["All"]+part_list)
+    select_defect = st.selectbox("Choo Parts", ["All"]+part_list)
 
 
 
