@@ -35,10 +35,10 @@ def report_defect():
 def get_defect_by_multi_tab():
     st.title("Filter Defect List")
 
-    select_status = st.selectbox("Choose Status:", [,"Reported", "Closed"])
+    select_status = st.selectbox("Choose Status:", ["Status","Reported", "Closed"])
 
     eqpmnt_list = []  # Initialize to avoid NameError
-    if select_status != "All":
+    if select_status != "Status":
         st.write(select_status)
         eqp_list_response = requests.get(f"{API_URL}/equipment_list/{select_status}")
         if eqp_list_response.status_code == 200:
@@ -47,10 +47,10 @@ def get_defect_by_multi_tab():
                 eqpmnt_list = [item["equipment_id"] for item in eqp_list_json.get("equipment_list", [])]
         else:
             eqpmnt_list = ["Not fetched Equipment list"]
-    select_eqp = st.selectbox("Choose Equipment", ["All"] + eqpmnt_list)
+    select_eqp = st.selectbox("Choose Equipment", ["Equipments"] + eqpmnt_list)
 
     part_list = []  # Initialize to avoid NameError
-    if select_eqp != "All":
+    if select_eqp != "Equipments":
         part_list_response = requests.get(f"{API_URL}/part_list/{select_eqp}")
         if part_list_response.status_code == 200:
             part_list_json = part_list_response.json()
@@ -58,10 +58,10 @@ def get_defect_by_multi_tab():
                 part_list = [item["part_id"] for item in part_list_json.get("part_list", [])]
         else:
             part_list = ["Parts not fetched"]
-    select_part = st.selectbox("Choose Part", ["All"] + part_list)
+    select_part = st.selectbox("Choose Part", ["Parts"] + part_list)
 
     report_list = []  # Initialize to avoid NameError
-    if select_part != "All":
+    if select_part != "Parts":
         report_list_response = requests.get(f"{API_URL}/distinct_defect/{select_part}")
         if report_list_response.status_code == 200:
             report_list_json = report_list_response.json()
@@ -69,5 +69,5 @@ def get_defect_by_multi_tab():
                 report_list = [item["defect_description"] for item in report_list_json.get("distinct_defect", [])]
         else:
             report_list = ["Report not fetched"]
-    select_report = st.selectbox("Choose Report", ["All"] + report_list)
+    select_report = st.selectbox("Choose Report", ["Reports"] + report_list)
 
