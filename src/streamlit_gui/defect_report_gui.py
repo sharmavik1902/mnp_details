@@ -66,7 +66,7 @@ def get_defect_by_multi_tab():
         if report_list_response.status_code == 200:
             report_list_json = report_list_response.json()
             if isinstance(report_list_json, dict):  # Ensure response is a dictionary
-                report_list = [item["defect_description"] for item in report_list_json.get("defect_description", [])]
+                report_list = [item["defect_description"] for item in report_list_json.get("distinct_defect", [])]
         else:
             report_list = ["Report not fetched"]
     select_report = st.selectbox("Choose Report", ["All"] + report_list)
