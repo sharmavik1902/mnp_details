@@ -68,7 +68,20 @@ def get_defect_by_multi_tab():
             part_list = ["Parts not fetched"]
             st.write("Parts not fetched")
 
-    select_defect = st.selectbox("Choose Part2", ["All"] + part_list)
+    select_part = st.selectbox("Choose Part", ["All"] + part_list)
 
+    report_list = []  # Initialize to avoid NameError
 
+    if select_part != "All":
+        report_list_response = requests.get(f"{API_URL}/part_list/{select_part}")
+
+        if report_list_response.status_code == 200:
+            report_list_json = report_list_response.json()
+            if isinstance(report_list_json, dict):  # Ensure response is a dictionary
+                report_list = [item["defect_description"] for item in report_list_json.get("defect_description", [])]
+        else:
+            part_list = ["Report not fetched"]
+            st.write("Report not fetched")
+
+    select_report = st.selectbox("Choose Report", ["All"] + part_list)
 
