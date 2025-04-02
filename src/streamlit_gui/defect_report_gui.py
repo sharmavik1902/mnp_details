@@ -80,8 +80,8 @@ def get_defect_by_multi_tab():
             if isinstance(report_list_json, dict):  # Ensure response is a dictionary
                 report_list = [item["defect_description"] for item in report_list_json.get("defect_description", [])]
         else:
-            part_list = ["Report not fetched"]
+            report_list = ["Report not fetched"]
             st.write("Report not fetched")
 
-    select_report = st.selectbox("Choose Report", ["All"] + part_list)
+    select_report = st.selectbox("Choose Report", ["All"] + report_list)
 
