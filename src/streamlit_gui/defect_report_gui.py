@@ -39,7 +39,6 @@ def get_defect_by_multi_tab():
 
     eqpmnt_list = []  # Initialize to avoid NameError
     if select_status != "Status":
-        st.write(select_status)
         eqp_list_response = requests.get(f"{API_URL}/equipment_list/{select_status}")
         if eqp_list_response.status_code == 200:
             eqp_list_json = eqp_list_response.json()
@@ -70,4 +69,6 @@ def get_defect_by_multi_tab():
         else:
             report_list = ["Report not fetched"]
     select_report = st.selectbox("Choose Report", ["Reports"] + report_list)
+
+    st.write(select_eqp,select_part,select_report,"status",select_status)
 
