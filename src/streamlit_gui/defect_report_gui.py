@@ -48,6 +48,8 @@ def get_defect_by_multi_tab():
             eqp_list_json = eqp_list_response.json()
             if isinstance(eqp_list_json, list):  # Ensure it is a list
                 eqpmnt_list = [item["equipment_id"] for item in eqp_list_json]
+        else:
+            st.write("Eqp not fetched")
 
     st.write(eqpmnt_list)
     select_eqp = st.selectbox("Choo Equipment", ["All"]+eqpmnt_list)
