@@ -35,7 +35,7 @@ def report_defect():
 def get_defect_by_multi_tab():
     st.title("Filter Defect List")
 
-    select_status = st.selectbox("Choose Status:", ["All","Reported", "Closed"])
+    select_status = st.selectbox("Choose Status:", [,"Reported", "Closed"])
 
     eqpmnt_list = []  # Initialize to avoid NameError
     if select_status != "All":
