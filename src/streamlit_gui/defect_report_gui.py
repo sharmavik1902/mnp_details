@@ -65,7 +65,7 @@ def get_defect_by_multi_tab():
                 part_list = [item["part_id"] for item in part_list_json.get("part_id",[])]
         else:
             part_list = ["Parts not fetched"]
-            st.write("Parts not detched")
+            st.write("Parts not fetched")
 
     select_defect = st.selectbox("Choo Parts", ["All"]+part_list)
 
