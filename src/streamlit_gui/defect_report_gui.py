@@ -33,42 +33,51 @@ def report_defect():
 
 
 def get_defect_by_multi_tab():
-    st.title("Filter Defect List")
+    st.title("🔍 Filter Defect List")
 
-    select_status = st.selectbox("Choose Status:", ["Status","Reported", "Closed"])
+    # Status selection
+    select_status = st.selectbox("Choose Status:", ["Select Status", "Reported", "Closed"])
 
-    eqpmnt_list = []  # Initialize to avoid NameError
-    if select_status != "Status":
+    eqpmnt_list = []  # Initialize equipment list
+    if select_status != "Select Status":
         eqp_list_response = requests.get(f"{API_URL}/equipment_list/{select_status}")
         if eqp_list_response.status_code == 200:
             eqp_list_json = eqp_list_response.json()
             if isinstance(eqp_list_json, dict):  # Ensure it's a dictionary
                 eqpmnt_list = [item["equipment_id"] for item in eqp_list_json.get("equipment_list", [])]
         else:
-            eqpmnt_list = ["Not fetched Equipment list"]
-    select_eqp = st.selectbox("Choose Equipment", ["Equipments"] + eqpmnt_list)
+            eqpmnt_list = ["❌ Equipment list not fetched"]
 
-    part_list = []  # Initialize to avoid NameError
-    if select_eqp != "Equipments":
+    select_eqp = st.selectbox("Choose Equipment:", ["Select Equipment"] + eqpmnt_list)
+
+    part_list = []  # Initialize part list
+    if select_eqp != "Select Equipment":
         part_list_response = requests.get(f"{API_URL}/part_list/{select_eqp}")
         if part_list_response.status_code == 200:
             part_list_json = part_list_response.json()
-            if isinstance(part_list_json, dict):  # Ensure response is a dictionary
+            if isinstance(part_list_json, dict):  # Ensure it's a dictionary
                 part_list = [item["part_id"] for item in part_list_json.get("part_list", [])]
         else:
-            part_list = ["Parts not fetched"]
-    select_part = st.selectbox("Choose Part", ["Parts"] + part_list)
+            part_list = ["❌ Parts not fetched"]
 
-    report_list = []  # Initialize to avoid NameError
-    if select_part != "Parts":
+    select_part = st.selectbox("Choose Part:", ["Select Part"] + part_list)
+
+    report_list = []  # Initialize defect list
+    if select_part != "Select Part":
         report_list_response = requests.get(f"{API_URL}/distinct_defect/{select_part}")
         if report_list_response.status_code == 200:
             report_list_json = report_list_response.json()
-            if isinstance(report_list_json, dict):  # Ensure response is a dictionary
+            if isinstance(report_list_json, dict):  # Ensure it's a dictionary
                 report_list = [item["defect_description"] for item in report_list_json.get("distinct_defect", [])]
         else:
-            report_list = ["Report not fetched"]
-    select_report = st.selectbox("Choose Report", ["Reports"] + report_list)
+            report_list = ["❌ Report not fetched"]
 
-    st.write(select_eqp,select_part,select_report,"status",select_status)
+    select_report = st.selectbox("Choose Report:", ["Select Report"] + report_list)
+
+    # Display the selected options for debugging
+    st.write("### Selected Filters:")
+    st.write(f"**Equipment:** {select_eqp}")
+    st.write(f"**Part:** {select_part}")
+    st.write(f"**Defect Report:** {select_report}")
+    st.write(f"**Status:** {select_status}")
 
