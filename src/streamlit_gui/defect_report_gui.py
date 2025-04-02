@@ -38,18 +38,19 @@ def get_defect_by_multi_tab():
     select_status = st.selectbox("Choo Status:", ["Reported", "Closed"])
     st.write(select_status)
 
-    eqp_list = []
+
     if select_status != "All":
+
         eqp_list_response = requests.get(f"{API_URL}/equipment_list/{select_status}")
         st.write(eqp_list_response)
 
         if eqp_list_response.status_code == 200:
             eqp_list_json = eqp_list_response.json()
             if isinstance(eqp_list_json, list):  # Ensure it is a list
-                eqp_list = [item["equipment_id"] for item in eqp_list_json]
+                eqpmnt_list = [item["equipment_id"] for item in eqp_list_json]
 
-
-    select_eqp = st.selectbox("Choo Equipment", ["All"]+eqp_list)
+    st.write(eqpmnt_list)
+    select_eqp = st.selectbox("Choo Equipment", ["All"]+eqpmnt_list)
 
     part_list = []
     if select_eqp != "All":
