@@ -61,8 +61,11 @@ def get_defect_by_multi_tab():
 
         if part_list_response.status_code == 200:
             part_list_json = part_list_response.json()
-            if isinstance(part_list_json, list):  # Ensure it is a list
-                part_list = [item["part_id"] for item in part_list_json]
+            if isinstance(part_list_json, dict):  # Ensure it is a list
+                part_list = [item["part_id"] for item in part_list_json.get("part_id",[])]
+        else:
+            part_list = ["Parts not fetched"]
+            st.write("Parts not detched")
 
     select_defect = st.selectbox("Choo Defect", ["All"]+part_list)
 
