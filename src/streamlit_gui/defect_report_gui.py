@@ -34,7 +34,7 @@ def report_defect():
 def fetch_data(endpoint):
     """Helper function to fetch data from the API."""
     try:
-        response = requests.get(f"{API_URL}/{endpoint}", timeout=10)
+        response = requests.get(f"{API_URL}/{endpoint}", timeout=20)
         if response.status_code == 200:
             return response.json()
         st.error(f"Error fetching {endpoint}: {response.status_code}")
@@ -100,7 +100,7 @@ def get_defect_by_multi_tab():
                 }
 
                 try:
-                    response = requests.post(f"{API_URL}/update_defect/", json=payload, timeout=10)
+                    response = requests.post(f"{API_URL}/update_defect/", json=payload, timeout=20)
                     if response.status_code == 200:
                         st.success("Defect updated successfully!")
                     else:
