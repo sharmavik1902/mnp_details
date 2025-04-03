@@ -31,11 +31,7 @@ def report_defect():
 
 # '''-------------------------------------------------------------------------------------------------'''
 
-import streamlit as st
-import requests
-import datetime
 
-API_URL = "https://your-api-url.com"  # Replace with your actual API URL
 
 
 def fetch_data(url):
