@@ -31,19 +31,6 @@ def report_defect():
 
 # '''-------------------------------------------------------------------------------------------------'''
 
-def fetch_data(endpoint):
-    """Helper function to fetch data from the API."""
-    try:
-        response = requests.get(f"{API_URL}/{endpoint}", timeout=20)
-        if response.status_code == 200:
-            return response.json()
-        st.error(f"Error fetching {endpoint}: {response.status_code}")
-        return {}
-    except requests.exceptions.RequestException as e:
-        st.error(f"Request failed: {str(e)}")
-        return {}
-
-
 def get_defect_by_multi_tab():
     st.title("🔍 Filter Defect List")
 
@@ -52,21 +39,21 @@ def get_defect_by_multi_tab():
 
     eqpmnt_list = []
     if select_status != "Select Status":
-        eqp_data = fetch_data(f"{API_URL}/equipment_list/{select_status}")
+        eqp_data = requests.get(f"{API_URL}/equipment_list/{select_status}")
         eqpmnt_list = [item["equipment_id"] for item in eqp_data.get("equipment_list", [])]
 
     select_eqp = st.selectbox("Choose Equipment:", ["Select Equipment"] + eqpmnt_list)
 
     part_list = []
     if select_eqp != "Select Equipment":
-        part_data = fetch_data(f"{API_URL}/part_list/{select_eqp}")
+        part_data = requests.get(f"{API_URL}/part_list/{select_eqp}")
         part_list = [item["part_id"] for item in part_data.get("part_list", [])]
 
     select_part = st.selectbox("Choose Part:", ["Select Part"] + part_list)
 
     report_list = []
     if select_part != "Select Part":
-        report_data = fetch_data(f"{API_URL}/distinct_defect/{select_part}")
+        report_data = requests.get(f"{API_URL}/distinct_defect/{select_part}")
         report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
     select_report = st.selectbox("Choose Report:", ["Select Report"] + report_list)
 
