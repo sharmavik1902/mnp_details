@@ -50,21 +50,21 @@ def get_defect_by_multi_tab():
     # Status Selection
     select_status = st.selectbox("Choose Status:", ["Select Status", "Reported", "Closed"])
 
-    # eqpmnt_list = []
+    eqpmnt_list = []
     if select_status != "Select Status":
         eqp_data = fetch_data(f"equipment_list/{select_status}")
         eqpmnt_list = [item["equipment_id"] for item in eqp_data.get("equipment_list", [])]
 
     select_eqp = st.selectbox("Choose Equipment:", ["Select Equipment"] + eqpmnt_list)
 
-    # part_list = []
+    part_list = []
     if select_eqp != "Select Equipment":
         part_data = fetch_data(f"part_list/{select_eqp}")
         part_list = [item["part_id"] for item in part_data.get("part_list", [])]
 
     select_part = st.selectbox("Choose Part:", ["Select Part"] + part_list)
 
-    # report_list = []
+    report_list = []
     if select_part != "Select Part":
         report_data = fetch_data(f"distinct_defect/{select_part}")
         report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
