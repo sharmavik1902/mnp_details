@@ -75,7 +75,7 @@ def update_defect(report:DefectUpdateRequest  = Body()):
     if report == 0:
         raise HTTPException(status_code=500, detail="Failed to update defect report in the database")
 
-    # return {"message": "Defect updated successfully"}
+    return {"message": "Defect updated successfully"}
 
 '''-------------------------------------------------------------------------'''
 if __name__ == "__main__":
