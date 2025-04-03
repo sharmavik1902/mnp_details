@@ -47,12 +47,14 @@ def fetch_data(url):
 
 def get_defect_by_multi_tab():
     st.title("🔍 Update Defects")
+    defect_table = fetch_data(f"{API_URL}/all_defect/")
+    df = pd.DataFrame(defect_table)
 
 
     # Status Selection
     select_status = st.selectbox("Choose Status:", ["Select Status", "Reported", "Closed"])
-    defect_table = fetch_data(f"{API_URL}/all_defect/")
-    df = pd.DataFrame(defect_table)
+    # defect_table = fetch_data(f"{API_URL}/all_defect/")
+    # df = pd.DataFrame(defect_table)
 
     eqpmnt_list = []
     if select_status != "Select Status":
