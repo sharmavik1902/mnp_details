@@ -25,7 +25,7 @@ class DefectUpdateRequest(BaseModel):
     type_of_activity: str
     consumption: str
     spare: str
-    resolution_date: datetime
+    resolution_date: datetime.date().today()
     equipment_id: str
     part_id: str
     defect_description: str
