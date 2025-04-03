@@ -80,7 +80,7 @@ def get_defect_by_multi_tab():
         spare = st.text_input("Spare Part Used",value="NA")
         defect_status = st.selectbox("Defect Status:", ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
         downtime_hours = st.number_input("Down Time (hrs)",value=0.0)
-        resolution_date = st.date_input("Rectification Date",value="NA")
+        resolution_date = st.date_input("Rectification Date")
 
         submit = st.form_submit_button("Update Defect to DB")
 
