@@ -50,7 +50,7 @@ def fetch_data(url):
 
 
 def get_defect_by_multi_tab():
-    st.title("🔍 Filter Defect List")
+    st.title("🔍 Update Defects")
 
     # Status Selection
     select_status = st.selectbox("Choose Status:", ["Select Status", "Reported", "Closed"])
