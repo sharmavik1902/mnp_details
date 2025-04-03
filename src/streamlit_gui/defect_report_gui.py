@@ -76,7 +76,7 @@ def get_defect_by_multi_tab():
     report_list = []
     if select_part != "Select Part":
         report_list = df[(df["defect_status"] == select_status) & (df["equipment_id"] == select_eqp) & (df["part_id"] == select_part)][
-            "part_id"].unique().tolist()
+            "defect_description"].unique().tolist()
         # report_data = fetch_data(f"{API_URL}/distinct_defect/{select_part}")
         # report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
 
