@@ -52,7 +52,7 @@ def get_defect_by_multi_tab():
 
 
     # Status Selection
-    select_status = st.selectbox("Choose Status:", ["Select Status", "Reported", "Closed"])
+    select_status = st.selectbox("Choose Status:", ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
     # defect_table = fetch_data(f"{API_URL}/all_defect/")
     # df = pd.DataFrame(defect_table)
 
@@ -85,15 +85,15 @@ def get_defect_by_multi_tab():
     if select_report != "Select Report":
         # Defect Update Form
         with st.form("update_defect_form"):
-            assigned_technician = st.text_input("Technician Name", value="NA")
-            type_of_activity = st.text_input("Type of Activity", value="NA")
-            remarks = st.text_area("Additional Remarks", value="NA")
-            consumption = st.text_input("Consumables", value="NA")
-            spare = st.text_input("Spare Part Used", value="NA")
+            assigned_technician = st.text_input("Technician Name")
+            type_of_activity = st.text_input("Type of Activity")
+            remarks = st.text_area("Additional Remarks")
+            consumption = st.text_input("Consumables")
+            spare = st.text_input("Spare Part Used")
             defect_status = st.selectbox("Defect Status:",
                                          ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
-            downtime_hours = st.number_input("Down Time (hrs)", value=0.0)
-            resolution_date = st.date_input("Rectification Date", value=datetime.date.today())
+            downtime_hours = st.number_input("Down Time (hrs)")
+            resolution_date = st.date_input("Rectification Date", value=datetime.date())
 
             submit = st.form_submit_button("Update Defect to DB")
 
