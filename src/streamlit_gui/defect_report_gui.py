@@ -48,27 +48,35 @@ def fetch_data(url):
 def get_defect_by_multi_tab():
     st.title("🔍 Update Defects")
 
+
     # Status Selection
     select_status = st.selectbox("Choose Status:", ["Select Status", "Reported", "Closed"])
+    defect_table = fetch_data(f"{API_URL}/all_defect/")
+    df = pd.DataFrame(defect_table)
 
     eqpmnt_list = []
     if select_status != "Select Status":
-        eqp_data = fetch_data(f"{API_URL}/equipment_list/{select_status}")
-        eqpmnt_list = [item["equipment_id"] for item in eqp_data.get("equipment_list", [])]
+        eqpmnt_list = df[df["defect_status"] == select_status]["equipment_id"].unique().tolist()
+
+        # eqp_data = fetch_data(f"{API_URL}/equipment_list/{select_status}")
+        # eqpmnt_list = [item["equipment_id"] for item in eqp_data.get("equipment_list", [])]
 
     select_eqp = st.selectbox("Choose Equipment:", ["Select Equipment"] + eqpmnt_list)
 
     part_list = []
     if select_eqp != "Select Equipment":
-        part_data = fetch_data(f"{API_URL}/part_list/{select_eqp}")
-        part_list = [item["part_id"] for item in part_data.get("part_list", [])]
+        part_list = df[(df["defect_status"] == select_status) & (df["equipment_id"] == select_eqp)]["part_id"].unique().tolist()
+        # part_data = fetch_data(f"{API_URL}/part_list/{select_eqp}")
+        # part_list = [item["part_id"] for item in part_data.get("part_list", [])]
 
     select_part = st.selectbox("Choose Part:", ["Select Part"] + part_list)
 
     report_list = []
     if select_part != "Select Part":
-        report_data = fetch_data(f"{API_URL}/distinct_defect/{select_part}")
-        report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
+        report_list = df[(df["defect_status"] == select_status) & (df["equipment_id"] == select_eqp) & (df["part_id"] == select_part)][
+            "part_id"].unique().tolist()
+        # report_data = fetch_data(f"{API_URL}/distinct_defect/{select_part}")
+        # report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
 
     select_report = st.selectbox("Choose Report:", ["Select Report"] + report_list)
 

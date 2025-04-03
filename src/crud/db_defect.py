@@ -47,6 +47,14 @@ def get_all_defects(defect_status= str):
         )
         data = cursor.fetchall()
         return data
+# Get all defect reported
+def get_reported_defects():
+    print("Fetching all Defect History")
+    with get_db_cursor() as cursor:
+        cursor.execute(
+        "SELECT defect_status, equipment_id, part_id, defect_description FROM equipment_defect_reports;")
+        data = cursor.fetchall()
+        return data
 
 def get_distinct_eqp(defect_status: str):
     print("Fetch distinct equipment wrt status")

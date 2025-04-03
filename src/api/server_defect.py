@@ -7,6 +7,7 @@ from src.crud.db_defect import save_defect_report
 from src.crud.db_defect import get_all_defects
 from src.crud.db_defect import get_distinct_defect,get_distinct_part,get_distinct_eqp
 from src.crud.db_defect import update_defect_report
+from src.crud.db_defect import get_reported_defects
 
 app = FastAPI()
 '''-------------------------------------------------------------'''
@@ -68,6 +69,14 @@ def distinct_part_list(part_list: str):
         raise HTTPException(status_code=404, detail="No data found")
     return {"part_list": part_list, "distinct_defect": data}
 '''------------------------------------------------------------------'''
+# Get all reported defect list by worker
+@app.get("/all_defect/")
+def Get_all_defect():
+    data = get_reported_defects()
+    if not data:
+        raise HTTPException(status_code=404, detail="No data found")
+    return data
+
 # FastAPI Route
 @app.post("/update_defect/")
 def update_defect(report:DefectUpdateRequest  = Body()):
