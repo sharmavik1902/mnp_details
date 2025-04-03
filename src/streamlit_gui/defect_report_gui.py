@@ -31,6 +31,24 @@ def report_defect():
 
 # '''-------------------------------------------------------------------------------------------------'''
 
+import streamlit as st
+import requests
+import datetime
+
+API_URL = "https://your-api-url.com"  # Replace with your actual API URL
+
+
+def fetch_data(url):
+    """Fetch data from the API and handle errors."""
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error fetching data: {str(e)}")
+        return {}
+
+
 def get_defect_by_multi_tab():
     st.title("🔍 Filter Defect List")
 
@@ -39,35 +57,37 @@ def get_defect_by_multi_tab():
 
     eqpmnt_list = []
     if select_status != "Select Status":
-        eqp_data = requests.get(f"{API_URL}/equipment_list/{select_status}")
+        eqp_data = fetch_data(f"{API_URL}/equipment_list/{select_status}")
         eqpmnt_list = [item["equipment_id"] for item in eqp_data.get("equipment_list", [])]
 
     select_eqp = st.selectbox("Choose Equipment:", ["Select Equipment"] + eqpmnt_list)
 
     part_list = []
     if select_eqp != "Select Equipment":
-        part_data = requests.get(f"{API_URL}/part_list/{select_eqp}")
+        part_data = fetch_data(f"{API_URL}/part_list/{select_eqp}")
         part_list = [item["part_id"] for item in part_data.get("part_list", [])]
 
     select_part = st.selectbox("Choose Part:", ["Select Part"] + part_list)
 
     report_list = []
     if select_part != "Select Part":
-        report_data = requests.get(f"{API_URL}/distinct_defect/{select_part}")
+        report_data = fetch_data(f"{API_URL}/distinct_defect/{select_part}")
         report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
+
     select_report = st.selectbox("Choose Report:", ["Select Report"] + report_list)
 
-    if select_report!= "Select Report":
+    if select_report != "Select Report":
         # Defect Update Form
         with st.form("update_defect_form"):
-            assigned_technician = st.text_input("Technician Name",value="NA")
-            type_of_activity = st.text_input("Type of Activity",value="NA")
-            remarks = st.text_area("Additional Remarks",value="NA")
-            consumption = st.text_input("Consumables",value="NA")
-            spare = st.text_input("Spare Part Used",value="NA")
-            defect_status = st.selectbox("Defect Status:", ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
-            downtime_hours = st.number_input("Down Time (hrs)",value=0.0)
-            resolution_date = st.date_input("Rectification Date")
+            assigned_technician = st.text_input("Technician Name", value="NA")
+            type_of_activity = st.text_input("Type of Activity", value="NA")
+            remarks = st.text_area("Additional Remarks", value="NA")
+            consumption = st.text_input("Consumables", value="NA")
+            spare = st.text_input("Spare Part Used", value="NA")
+            defect_status = st.selectbox("Defect Status:",
+                                         ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
+            downtime_hours = st.number_input("Down Time (hrs)", value=0.0)
+            resolution_date = st.date_input("Rectification Date", value=datetime.date.today())
 
             submit = st.form_submit_button("Update Defect to DB")
 
@@ -89,8 +109,10 @@ def get_defect_by_multi_tab():
                 try:
                     response = requests.post(f"{API_URL}/update_defect/", json=payload, timeout=20)
                     if response.status_code == 200:
-                        st.success("Defect updated successfully!")
+                        st.success("✅ Defect updated successfully!")
                     else:
-                        st.error(f"Failed to update defect: {response.status_code} - {response.text}")
+                        st.error(f"❌ Failed to update defect: {response.status_code} - {response.text}")
                 except requests.exceptions.RequestException as e:
-                    st.error(f"Error updating defect: {str(e)}")
+                    st.error(f"❌ Error updating defect: {str(e)}")
+
+
