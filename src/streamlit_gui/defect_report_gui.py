@@ -73,7 +73,7 @@ def get_defect_by_multi_tab():
     if select_report!= "Select Report":
         # Defect Update Form
         with st.form("update_defect_form"):
-         assigned_technician = st.text_input("Technician Name",value="NA")
+            assigned_technician = st.text_input("Technician Name",value="NA")
             type_of_activity = st.text_input("Type of Activity",value="NA")
             remarks = st.text_area("Additional Remarks",value="NA")
             consumption = st.text_input("Consumables",value="NA")
