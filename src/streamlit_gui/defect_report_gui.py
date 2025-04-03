@@ -68,7 +68,6 @@ def get_defect_by_multi_tab():
     if select_part != "Select Part":
         report_data = fetch_data(f"distinct_defect/{select_part}")
         report_list = [item["defect_description"] for item in report_data.get("distinct_defect", [])]
-
     select_report = st.selectbox("Choose Report:", ["Select Report"] + report_list)
 
     # Defect Update Form
