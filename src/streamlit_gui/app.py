@@ -3,14 +3,14 @@ from mnp_details_gui import save_mnp_detail, save_mmd_dpr_tab, fetch_equp_histry
 from defect_report_gui import report_defect, get_defect_by_multi_tab
 
 # App Title
-st.title("🛠 ONMOT Reporting System")
+st.title("🛠 ONMOT")
 
 # User role selection
 user_role = st.radio("Select Your Role:", ["Planner", "Worker"], horizontal=True)
 
 # Define tabs based on role
 if user_role == "Planner":
-    tab_names = ["👷 Manpower Detail", "⚙️ Equipment History", "🔍 Filter Defect"]
+    tab_names = ["👷 Manpower Detail", "🔍 Equipment History", "⚙️ Update Defect"]
     tab_functions = [save_mnp_detail, fetch_equp_histry_tab, get_defect_by_multi_tab]
 elif user_role == "Worker":
     tab_names = ["📋 DPR Update", "⚠️ Report Defect"]
