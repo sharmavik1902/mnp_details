@@ -93,7 +93,7 @@ def get_defect_by_multi_tab():
             defect_status = st.selectbox("Defect Status:",
                                          ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
             downtime_hours = st.number_input("Down Time (hrs)",min_value=0.5, step=0.5)
-            resolution_date = st.date_input("Closing Date", value=datetime.today())
+            resolution_date = st.date_input("Closing Date", value=datetime)
 
             submit = st.form_submit_button("Update Defect to DB")
 
@@ -106,7 +106,7 @@ def get_defect_by_multi_tab():
                     "type_of_activity": type_of_activity,
                     "consumption": consumption,
                     "spare": spare,
-                    "resolution_date": resolution_date.today(),
+                    "resolution_date": resolution_date,
                     "equipment_id": select_eqp,
                     "part_id": select_part,
                     "defect_description": select_report
