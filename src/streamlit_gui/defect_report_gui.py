@@ -103,7 +103,7 @@ def get_defect_by_multi_tab():
                 }
 
                 try:
-                    response = requests.post(f"{API_URL}/update_defect/", json=payload, timeout=20)
+                    response = requests.post(f"{API_URL}/update_defect/", json=payload, timeout=10)
                     if response.status_code == 200:
                         st.success("✅ Defect updated successfully!")
                     else:
