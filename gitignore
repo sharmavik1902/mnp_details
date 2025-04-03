@@ -1,0 +1,49 @@
+# Byte-compiled / Virtual environment files
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+venv/
+env/
+.venv/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+logs/
+*.log
+*.tmp
+
+# Python package files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Streamlit Cache
+.streamlit/
+
+# Database Credentials & Environment Variables
+.env
+config.yaml
+credentials.json
+
+# MySQL/TiDB dumps
+*.sql
