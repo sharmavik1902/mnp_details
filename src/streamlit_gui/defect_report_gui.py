@@ -1,6 +1,9 @@
+import datetime
+
 import requests
 import streamlit as st
 from datetime import datetime
+from datetime import date
 import pandas as pd
 API_URL = "https://mnp-details-gui.onrender.com"
 # '''-------------------------------------------------------------'''
@@ -93,7 +96,7 @@ def get_defect_by_multi_tab():
             defect_status = st.selectbox("Defect Status:",
                                          ["Reported", "Closed", "Under Review", "Resolved", "Duplicate"])
             downtime_hours = st.number_input("Down Time (hrs)",min_value=0.5, step=0.5)
-            resolution_date = st.date_input("Closing Date", value=datetime.date)
+            resolution_date = st.date_input("Closing Date", value=date.today())
             submit = st.form_submit_button("Update Defect to DB")
 
             if submit:
