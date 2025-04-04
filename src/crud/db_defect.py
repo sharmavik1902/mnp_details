@@ -105,7 +105,7 @@ def update_defect_report(
                 remarks = %s,
                 type_of_activity = %s,
                 consumption = %s,
-                spare = %s
+                spare = %s,
                 resolution_date = %s
             WHERE 
                 equipment_id = %s
