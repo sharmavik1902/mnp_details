@@ -19,7 +19,7 @@ def get_db_cursor(commit=False): #Commit is used to reflect the data changes to 
         yield cursor
         print("again in cursor due to yield")
         if commit:
-            connection.commit() #curson got commitedd
+            connection.commit() #curson got commited
         cursor.close()
         connection.close()
     except Exception as err:
