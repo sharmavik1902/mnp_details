@@ -16,13 +16,8 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 # Sample defects data (Replace this with your real data or load from DB)
 defect_table = requests.get(f"{API_URL}/all_defect/")
-df = pd.DataFrame(defect_table)
-data = {
-    "Date": ["2025-03-01", "2025-03-05", "2025-03-10", "2025-04-01"],
-    "Equipment": ["Crusher 1", "Crusher 2", "Belt 3", "Crusher 2"],
-    "Status": ["Reported", "Resolved", "Reported", "Reported"],
-    "Defect": ["Vibration", "Oil Leak", "Belt Tear", "Motor Trip"]
-}
+data = pd.DataFrame(defect_table)
+
 df = pd.DataFrame(data)
 df["Date"] = pd.to_datetime(df["Date"])
 
