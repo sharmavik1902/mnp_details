@@ -48,7 +48,7 @@ def fetch_data(url):
         return {}
 
 
-def get_defect_by_multi_tab():
+def update_defect_by_multi_tab():
     st.title("🔍 Update Defects")
     defect_table = fetch_data(f"{API_URL}/all_defect/")
     df = pd.DataFrame(defect_table)
@@ -124,4 +124,12 @@ def get_defect_by_multi_tab():
                 except requests.exceptions.RequestException as e:
                     st.error(f"❌ Error updating defect: {str(e)}")
 
+
+'''---------------------------------------------------------------------------'''
+
+def fetch_defect_history():
+    st.title("🔍 View Defects")
+    defect_table = fetch_data(f"{API_URL}/all_defect/")
+    df = pd.DataFrame(defect_table)
+    
 

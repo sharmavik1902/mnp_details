@@ -1,6 +1,8 @@
 
-import mysql.connector
 from contextlib import contextmanager
+
+import mysql.connector
+
 
 @contextmanager
 def get_db_cursor(commit=False): #Commit is used to reflect the data changes to the DB actual data
@@ -9,8 +11,8 @@ def get_db_cursor(commit=False): #Commit is used to reflect the data changes to 
         connection = mysql.connector.connect(
             host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
             port=4000,
-            user="4T5EnGdd4Bkg7RD.root",
-            password="Llb1e02rsYEUJ7e9",
+            user=DB_USER,
+            password=DB_PASSWORD,
             database="test"        )
         print("Connection established")
         cursor = connection.cursor(dictionary=True) # Put "dictionary=True" in small brackets and will get the in Dictionary form otherwise data will be in Tuple form
