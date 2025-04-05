@@ -38,7 +38,7 @@ query = st.text_input("Enter your query:", placeholder="e.g., show reported defe
 
 
 
-def ai_filter
+def ai_filter():
     if st.button("Run Query"):
         with st.spinner("Processing..."):
             try:
