@@ -7,8 +7,3 @@ app = FastAPI()
 class QueryRequest(BaseModel):
     query: str
 
-@app.post("/filter/")
-def filter_data(req: QueryRequest):
-    filters = get_filters(req.query)
-    df = get_data_from_filters(filters)
-    return df.to_dict(orient="records")
